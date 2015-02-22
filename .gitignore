@@ -55,3 +55,9 @@ target/
 
 # tmp folder
 tmp/
+
+# Pycharm
+.idea
+
+# keys
+*.pem
