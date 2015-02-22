@@ -1,0 +1,8 @@
+#stop nginx
+sudo service nginx stop
+
+cd /home/ubuntu/git-repos/myweb && git pull
+cd /home/ubuntu/git-repos/myweb/mysite && python manage.py migrate
+
+# start nginx back up
+sudo service nginx start
