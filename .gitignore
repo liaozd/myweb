@@ -62,4 +62,8 @@ tmp/
 # keys
 *.pem
 
+# linux editor temp file
 *~
+
+# database
+*.sqlite3
