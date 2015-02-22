@@ -61,3 +61,5 @@ tmp/
 
 # keys
 *.pem
+
+*~
