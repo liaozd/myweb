@@ -3,6 +3,7 @@
 sudo service nginx stop
 
 cd /home/ubuntu/git-repos/myweb && git pull
+sudo pip install -r requirements.txt
 cd /home/ubuntu/git-repos/myweb/mysite && python manage.py migrate
 
 # start nginx back up
