@@ -1,3 +1,4 @@
+#Paste this to drone.io
 #stop nginx
 sudo service nginx stop
 
