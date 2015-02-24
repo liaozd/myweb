@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.db import models
 
+
 class EntryQuerySet(models.QuerySet):
     def published(self):
         return self.filter(publish=True)

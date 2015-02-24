@@ -1,4 +1,6 @@
-#Paste this to drone.io
+# Copy and Paste this to drone.io -> Settings -> Deployments
+# -> Existing Deployments -> Remote Commands
+
 #stop nginx
 sudo service nginx stop
 
