@@ -16,4 +16,4 @@ location / {
 #		add_header Set-Cookie "";
 #		alias /home/ubuntu/git-repos/myweb/mysite/static/;
 #	}
-#}
+}
