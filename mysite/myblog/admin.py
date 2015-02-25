@@ -4,8 +4,9 @@ from django.db.models import TextField
 from django_markdown.admin import MarkdownModelAdmin
 from django_markdown.widgets import AdminMarkdownWidget
 
-# ref:https://github.com/arocks/qblog
+
 class EntryAdmin(MarkdownModelAdmin):
+    # ref:https://github.com/arocks/qblog
     list_display = ('title', 'created')
     prepopulated_fields = {'slug': ('title',)}
     # http://arunrocks.com/recreating-the-building-a-blog-in-django-screencast/
