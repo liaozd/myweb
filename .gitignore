@@ -67,3 +67,6 @@ tmp/
 
 # database
 *.sqlite3
+
+# static
+mysite/static
