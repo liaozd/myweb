@@ -2,11 +2,11 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 
-# class Tag(models.Model):
-#     slug = models.SlugField(max_length=200, unique=True)
-#
-#     def __str__(self):
-#         return self.slug
+class Tag(models.Model):
+    slug = models.SlugField(max_length=200, unique=True)
+
+    def __str__(self):
+        return self.slug
 
 
 class EntryQuerySet(models.QuerySet):
@@ -21,7 +21,7 @@ class Entry(models.Model):
     publish = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    # tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag)
 
     objects = EntryQuerySet.as_manager()
 
