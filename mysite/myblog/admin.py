@@ -16,4 +16,4 @@ class EntryAdmin(MarkdownModelAdmin):
 # this is interesting, sync slug with title, when inputting in title
 # by javascript
 admin.site.register(models.Entry, EntryAdmin)
-admin.site.register(models.Tag)
+# admin.site.register(models.Tag)
