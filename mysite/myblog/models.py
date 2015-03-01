@@ -1,12 +1,14 @@
+# -*- coding:utf-8 -*-
 from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.encoding import smart_unicode
 
 
 class Tag(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
 
-    def __str__(self):
-        return self.slug
+    def __unicode__(self):
+        return smart_unicode(self.slug)
 
 
 class EntryQuerySet(models.QuerySet):
@@ -25,8 +27,8 @@ class Entry(models.Model):
 
     objects = EntryQuerySet.as_manager()
 
-    def __str__(self):
-        return self.title
+    def __unicode__(self):
+        return smart_unicode(self.title)
 
     def get_absolute_url(self):
         # seems to be not used in django
