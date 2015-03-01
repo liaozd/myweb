@@ -7,6 +7,7 @@ apt-get -y upgrade
 
 # support utf-8
 apt-get install -y language-pack-UTF-8
+locale-gen UTF-8
 dpkg-reconfigure locales
 
 # set timezone
