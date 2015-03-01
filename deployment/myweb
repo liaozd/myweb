@@ -14,6 +14,6 @@ location / {
 location /static/ {
 		expires max;
 		add_header Set-Cookie "";
-		alias /home/ubuntu/git-repos/myweb/mysite/static/static_root;
+		alias /home/ubuntu/git-repos/myweb/mysite/static/static_root/;
 	}
 }
