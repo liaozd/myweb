@@ -7,7 +7,7 @@ sudo service nginx stop
 cd /home/ubuntu/git-repos/myweb && git pull
 sudo pip install -r requirements.txt
 cd /home/ubuntu/git-repos/myweb/mysite && python manage.py migrate
-cd /home/ubuntu/git-repos/myweb/mysite && python manage.py collectstatic -v0 --noinput
+#cd /home/ubuntu/git-repos/myweb/mysite && python manage.py collectstatic -v0 --noinput
 
 sudo ln -sf /home/ubuntu/git-repos/myweb/deployment/myweb /etc/nginx/sites-enabled/myweb
 

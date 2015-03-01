@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
+# add EC2 key to local keychain:
+# ssh_add -K myubuntu.pem
 
-#ssh -vvv -i ../keys/myubuntu.pem ubuntu@52.74.10.37
-ssh -vvv -i ../keys/myubuntu.pem ubuntu@52.74.57.11
+ssh -vvv ubuntu@52.74.57.11
 
