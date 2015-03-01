@@ -11,7 +11,7 @@ env.remote_static_root = '/home/ubuntu/git-repos/myweb/mysite/static/static_root
 
 @roles('static')
 def deploy_static():
-    local(BASE_DIR + '/manage.py collectstatic --noinput -v3')
+    local(BASE_DIR + '/manage.py collectstatic --noinput -v3 --clear')
     project.rsync_project(
         remote_dir=env.remote_static_root,
         local_dir=env.local_static_root,
