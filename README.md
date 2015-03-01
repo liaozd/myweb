@@ -1,5 +1,3 @@
-[![Build Status](https://drone.io/github.com/liaozd/myweb/status.png)](https://drone.io/github.com/liaozd/myweb/latest)
-
 # myweb
 personal website + blog
 
