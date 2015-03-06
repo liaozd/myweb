@@ -7,8 +7,6 @@ env.roledefs['static'] = ['ubuntu@52.74.40.130', ]
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
 
-# will create a sub dir under th
-# env.remote_static_root = '/home/ubuntu/git-repos/myweb/mysite/static/static_root'
 env.remote_static_root = '/home/ubuntu/git-repos/myweb/mysite/static'
 @roles('static')
 def deploy_static():
@@ -16,6 +14,6 @@ def deploy_static():
     project.rsync_project(
         remote_dir=env.remote_static_root,
         local_dir=env.local_static_root,
-        delete=True
+        # delete=True # <-- Be careful with this
     )
 
