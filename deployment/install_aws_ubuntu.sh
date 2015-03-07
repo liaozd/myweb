@@ -10,7 +10,8 @@ locale-gen UTF-8
 dpkg-reconfigure locales
 
 # set timezone
-echo 'Asia/Shanghai' | tee /etc/timezone; dpkg-reconfigure --frontend noninteractive tzdata
+echo 'Asia/Shanghai' | tee /etc/timezone
+dpkg-reconfigure --frontend noninteractive tzdata
 
 # install nginx
 apt-get -y install nginx
@@ -19,11 +20,11 @@ apt-get -y install nginx
 apt-get install -y python-pip python-dev
 
 # install package needed
-apt-get install -y tree nmap
+apt-get install -y tree nmap vim htop
 
-# install gunicorn
-pip install django
-pip install gunicorn
+# vim settings
+git clone git://github.com/amix/vimrc.git ~/.vim_runtime
+sh ~/.vim_runtime/install_basic_vimrc.sh
 
 # setup drone.io ci
 git clone https://github.com/liaozd/myweb.git /tmp/myweb_droneio_deployment/
