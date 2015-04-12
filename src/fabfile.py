@@ -3,7 +3,6 @@ from fabric.contrib import project
 from mysite.settings import STATIC_ROOT, BASE_DIR
 
 env.roledefs['static'] = ['ubuntu@52.74.40.130', ]
-
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
 
