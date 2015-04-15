@@ -13,5 +13,3 @@ sudo ln -sf /home/ubuntu/git-repos/myweb/deployment/myweb /etc/nginx/sites-enabl
 
 # start nginx back up
 sudo service nginx start
-
-#TODO make fabric.api do this
