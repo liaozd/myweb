@@ -4,5 +4,7 @@ web:
   build: .
   ports:
     - "80:80"
+  volumes:
+    - /var/log/nginx:/var/log/nginx
   links:
     - db

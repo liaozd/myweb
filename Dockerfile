@@ -2,8 +2,6 @@
 # Dockerfile to build Nginx Installed Containers
 # https://github.com/nginxinc/docker-nginx/blob/e9202a4795d84a85499fcd6cda58ddde4cf4079d/Dockerfile
 ############################################################
-# BUILD-USING: docker build -t my_nginx_img .
-# RUN-USING: docker run -d -p 80:80 --name my_nginx_cont my_nginx_img
 
 # Set the base image to Ubuntu
 FROM debian:wheezy
@@ -22,18 +20,15 @@ RUN apt-get -qq install \
     python python-pip python-dev \
     supervisor
 
-# Install necessary tools
-RUN apt-get -qq install vim tree procps
+# Install necessary tools, this is tempor
+RUN apt-get -qq install tree procps
 
 # psycopg2 Python-PostgreSQL Database Adapter dependency packages
 RUN apt-get -qq install libpq-dev
 
 # Download and Install Nginx
 RUN apt-get install -qq nginx
-# Remove the default Nginx configuration file
-# RUN rm -v /etc/nginx/nginx.conf
-# Copy a configuration file from the current directory
-# ADD nginx.conf /etc/nginx/
+RUN rm -f /etc/nginx/conf.d/*
 
 # Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
@@ -42,14 +37,12 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 EXPOSE 80
 
 ENV PYTHONUNBUFFERED 1
-RUN mkdir /code
-WORKDIR /code
-ADD . /code
-
-RUN pip install -r src/requirements/base.txt
-RUN rm -f /etc/nginx/conf.d/*
-RUN ln -sf /code/deployment/myweb_nginx.conf /etc/nginx/conf.d/
-RUN ln -sf /code/supervisor.conf /etc/supervisor/conf.d/
+RUN mkdir -p /git-repos/myweb
+WORKDIR /git-repos/myweb
+ADD . .
+RUN pip install -r /git-repos/myweb/src/requirements/base.txt
+RUN ln -sf /git-repos/myweb/deployment/myweb_nginx.conf /etc/nginx/conf.d/
+RUN ln -sf /git-repos/myweb/supervisor.conf /etc/supervisor/conf.d/
 
 # Set the default command to execute
 # when creating a new container
