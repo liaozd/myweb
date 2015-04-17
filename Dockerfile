@@ -34,7 +34,7 @@ RUN rm -f /etc/nginx/conf.d/*
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 # Expose ports
-EXPOSE 80
+EXPOSE 80 443
 
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /git-repos/myweb
