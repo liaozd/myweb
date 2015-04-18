@@ -20,8 +20,8 @@ RUN apt-get -qq install \
     python python-pip python-dev \
     supervisor
 
-# Install necessary tools, this is tempor
-RUN apt-get -qq install tree procps
+# Install necessary tools, this is temporary
+RUN apt-get -qq install vim tree procps
 
 # psycopg2 Python-PostgreSQL Database Adapter dependency packages
 RUN apt-get -qq install libpq-dev
@@ -37,12 +37,12 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 EXPOSE 80 443
 
 ENV PYTHONUNBUFFERED 1
-RUN mkdir -p /git-repos/myweb
-WORKDIR /git-repos/myweb
-ADD . .
-RUN pip install -r /git-repos/myweb/src/requirements/base.txt
-RUN ln -sf /git-repos/myweb/deployment/myweb_nginx.conf /etc/nginx/conf.d/
-RUN ln -sf /git-repos/myweb/supervisor.conf /etc/supervisor/conf.d/
+RUN mkdir -p /conf.d
+WORKDIR /conf.d
+ADD conf.d .
+RUN pip install -r requirements/base.txt
+COPY conf.d/nginx/myweb_nginx.conf /etc/nginx/conf.d/
+COPY conf.d/supervisor/supervisor.conf /etc/supervisor/conf.d/
 
 # Set the default command to execute
 # when creating a new container
