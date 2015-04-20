@@ -33,9 +33,6 @@ RUN rm -f /etc/nginx/conf.d/*
 # Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-# Expose ports
-EXPOSE 80 443
-
 ENV PYTHONUNBUFFERED 1
 RUN mkdir -p /conf.d
 WORKDIR /conf.d

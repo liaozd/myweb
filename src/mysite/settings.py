@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from os.path import normpath, join
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -18,15 +19,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#&d)8h9x==deb_e%^tka0$(+g734%lvda_^jbc6-_efzikm5t9'
+SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(32))
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'on') == 'on'
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -37,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # my own app
+    # my apps
     'myblog',
     'django_markdown',
 )
@@ -92,7 +91,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = normpath(join(BASE_DIR, 'static', 'static_root'))
 
 STATICFILES_DIRS = (
-   join(BASE_DIR, 'static', 'static_dirs'),
+    join(BASE_DIR, 'static', 'static_dirs'),
 )
 
 TEMPLATE_DIRS = (
