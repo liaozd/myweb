@@ -2,9 +2,9 @@ machine:
   services:
     - docker
 
-dependencies:
-  override:
-    - pip install dockcer-compose
+#dependencies:
+#  override:
+#    - pip install dockcer-compose
 
 test:
   override:
