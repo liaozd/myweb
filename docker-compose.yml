@@ -6,7 +6,7 @@ data:
   volumes:
     - /etc/postgresql
     - /var/log/postgresql:/var/log/postgresql
-    - /var/lib/postgresql
+    - /var/lib/postgresql:/var/lib/postgresql #TODO mount host to the postgresql database path
     - /var/log/nginx:/var/log/nginx
     - /var/log/supervisor:/var/log/supervisor
     - /git-repos/myweb:/git-repos/myweb # source code for web container
@@ -17,9 +17,9 @@ db:
     - data
   environment:
     - POSTGRES_PASSWORD=pass
-  ports:
-    # "HOST:CONTAINER"
-    - "5432:5432" # conflic with local install posgresql, map to another port
+#  ports:
+#    # "HOST:CONTAINER"
+#    - "5432:5432" # conflic with local install posgresql, map to another port
 
 web:
   build: .
