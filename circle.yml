@@ -10,3 +10,9 @@ dependencies:
 test:
   override:
     - echo "fake test"
+
+deployment:
+  staging:
+    branch: add-docker
+    commands:
+      - echo "deploy test"
