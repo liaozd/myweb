@@ -16,5 +16,4 @@ deployment:
   staging:
     branch: add-docker
     commands:
-      - echo "deploy test"
-      - fab log
+      - fab up

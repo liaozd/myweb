@@ -24,5 +24,12 @@ env.roledefs = {
 #     )
 
 @roles('myweb')
-def log():
-    run('tail -n 150 /var/log/docker/beijing_station.log')
+def up():
+    commands = [
+        'tail -n 150 /var/log/nginx/access.log',
+        'cd /git-repos/myweb && git pull'
+    ]
+
+    for command in commands:
+        run(command)
+
