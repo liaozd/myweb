@@ -3,6 +3,8 @@ from fabric.contrib import project
 # from mysite.settings import STATIC_ROOT, BASE_DIR
 
 # use ~/.ssh/config
+# but in circleci.com -> project settings -> SSH Permisions
+# Just put the aws key there then, it works.
 env.use_ssh_config = True
 env.roledefs = {
     'myweb': ['ec2-52-74-40-130.ap-southeast-1.compute.amazonaws.com']
@@ -23,11 +25,18 @@ env.roledefs = {
 
 @roles('myweb')
 def up():
+    # all commands need to be run under /git-repos/myweb
     commands = [
         'tail -n 150 /var/log/nginx/access.log',
-        'cd /git-repos/myweb && git pull'
+        'git pull',
+        # rebuild docker images
+        'docker-compose build && docker-compose up -d',
+        # clean image name with 'none'
+        #TODO there are image name without none, exit with 1
+        'docker rmi $(docker images | grep "^<none>" | awk '"'"'{print $3}'"'"')',
     ]
 
     for command in commands:
-        run(command)
+        with cd('/git-repos/myweb'):
+            run(command)
 
