@@ -4,11 +4,9 @@ from fabric.contrib import project
 
 # use ~/.ssh/config
 env.use_ssh_config = True
-
 env.roledefs = {
     'myweb': ['ec2-52-74-40-130.ap-southeast-1.compute.amazonaws.com']
 }
-
 
 # # Where the static files get collected locally. Your STATIC_ROOT setting.
 # env.local_static_root = STATIC_ROOT
