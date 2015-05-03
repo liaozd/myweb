@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(32))
 
-DEBUG = os.environ.get('DEBUG', 'on') == 'on'
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -26,9 +26,11 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # my apps:
-    'myblog',
+    # Third party apps
     'django_markdown',
+    # Internal apps
+    'myblog',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -44,9 +46,6 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'mysite.urls'
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -73,11 +72,11 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
 STATIC_URL = '/static/'
 
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in STATICFILES_DIRS.
 STATIC_ROOT = normpath(join(BASE_DIR, 'static', 'static_root'))
 
 STATICFILES_DIRS = (

@@ -1,15 +1,15 @@
 # Supported filenames: docker-compose.yml, docker-compose.yaml, fig.yml, fig.yaml
 # RUN: docker-compose build && docker-compose up -d
 data:
-  # pure data container
+  # pure files container
   image: busybox
   volumes:
-    - /etc/postgresql
+    - /etc/postgresql:/etc/postgresql
     - /var/log/postgresql:/var/log/postgresql
     - /var/lib/postgresql:/var/lib/postgresql #TODO mount host to the postgresql database path
     - /var/log/nginx:/var/log/nginx
     - /var/log/supervisor:/var/log/supervisor
-    - /git-repos/myweb:/git-repos/myweb # source code for web container
+    - /git-repos/myweb:/git-repos/myweb
 
 db:
   image: postgres
@@ -17,9 +17,10 @@ db:
     - data
   environment:
     - POSTGRES_PASSWORD=pass
-#  ports:
-#    # "HOST:CONTAINER"
-#    - "5432:5432" # conflic with local install posgresql, map to another port
+  ports:
+    # "HOST:CONTAINER"
+    - "5433:5432" # conflic with local install posgresql, map to the port other than 5432
+#TODO /var/lib/postgresql/data is permission by postgres user, that's why file can not be saved
 
 web:
   build: .

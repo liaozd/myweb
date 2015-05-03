@@ -1,7 +1,6 @@
 machine:
   services:
     - docker
-
 dependencies:
   pre:
     - sudo bash -c "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
@@ -10,10 +9,9 @@ dependencies:
     - pip install -r conf.d/requirements/aws-host.txt
 test:
   override:
-    - echo "fake test"
-
+    - echo "test here"
 deployment:
   staging:
     branch: add-docker
     commands:
-      - fab up
+      - fab deploy

@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from mysite import settings
+admin.autodiscover()
+from . import settings
 
 urlpatterns = patterns('',
                        url(r'^admin/', include(admin.site.urls)),
