@@ -12,6 +12,6 @@ test:
     - echo "test here"
 deployment:
   staging:
-    branch: add-docker
+    branch: staging
     commands:
-      - fab deploy
+      - fab deploy:branch=staging

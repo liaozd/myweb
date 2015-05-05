@@ -4,12 +4,16 @@ data:
   # pure files container
   image: busybox
   volumes:
+    # source code
+    - /git-repos/myweb_staging:/git-repos/myweb_staging
+    # postgres database
     - /etc/postgresql:/etc/postgresql
-    - /var/log/postgresql:/var/log/postgresql
     - /var/lib/postgresql:/var/lib/postgresql #TODO mount host to the postgresql database path
+    # nginx, postgres and supervisor logs
+    - /var/log/postgresql:/var/log/postgresql
     - /var/log/nginx:/var/log/nginx
     - /var/log/supervisor:/var/log/supervisor
-    - /git-repos/myweb:/git-repos/myweb
+
 
 db:
   image: postgres
