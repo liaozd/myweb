@@ -41,8 +41,10 @@ WORKDIR $SRC
 
 ##################################################
 # tools for debuging, this is just for temporary
-RUN apt-get -qq install vim tree procps
-RUN apt-get install -qq nmap postgresql-client
+RUN apt-get -qq install vim
+# RUN apt-get -qq install tree
+RUN apt-get -qq install procps
+RUN apt-get install -qq postgresql-client
 ##################################################
 
 cmd ["/usr/bin/supervisord", "-n"]

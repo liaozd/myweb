@@ -27,22 +27,26 @@ build_commands = [
     'find -name *.pyc | xargs rm -f',
     # rebuild docker containers
     'docker-compose build',
-    'docker-compose up -d',
     # clean image name/tag with '<none>'
+    'docker-compose stop',
     'export IMAGENONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGENONE"  ] || docker rmi -f $IMAGENONE',
+    'docker-compose up -d',
+    'sleep 4', # wait the db container boot up
     # migrate the django database
     'docker exec myweb_web_1 python /git-repos/myweb/src/manage.py migrate',
+    #TODO createsuperuser none interactive
+    'echo "docker exec -ti myweb_web_1 bash"',
+    'echo "python /git-repos/myweb/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"',
+
 ]
 
 
 def local_deploy():
     """build containers on local dev"""
+    local('docker rm -f $(docker ps -aq)')
     for command in build_commands:
         local(command)
     # local("""docker exec myweb_web_1 echo 'from django.contrib.auth.models import User; User.objects.create_superuser("liao", "liao_zd@hotmail.com", "pass")' | /git-repos/myweb/src/manage.py shell""")
-    local("""CMD='echo "from django.contrib.auth.models import User; User.objects.create_superuser({0}, {1}, {2})" | /git-repos/myweb/src/manage.py shell'; docker exec myweb_web_1 $CMD""".format("liao", "liao_zd@hotmail.com", "pass"))
-
-
 
 
 def init_build():
