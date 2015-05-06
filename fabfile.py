@@ -30,7 +30,8 @@ def deploy(where='local', branch='staging'):
         deploy_cd = getattr(fabric.api, 'cd')
     # env
     branch_fullpath = '/git-repos/myweb.branch.{0}'.format(branch)
-    git_url = "https://github.com/liaozd/myweb.git"
+    git_url = 'https://github.com/liaozd/myweb.git'
+    docker_exec_prefix = 'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml'.format(branch)
     # clean before deploy
     deploy_run('rm -rf {0}'.format(branch_fullpath))
     deploy_run('mkdir -p /git-repos')
@@ -39,11 +40,12 @@ def deploy(where='local', branch='staging'):
     deploy_commands = [
         'uname -nvr', # show maching info
         # rebuild docker containers
-        'docker-compose --file docker-compose.{0}.yml build'.format(branch),
+        '{0} build'.format(docker_exec_prefix),
         # clean image name/tag with '<none>'
-        'docker-compose stop',
+        '{0} stop'.format(docker_exec_prefix),
+        # 'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml stop'.format(branch),
         'export IMAGENONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGENONE"  ] || docker rmi -f $IMAGENONE',
-        'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml up -d'.format(branch),
+        '{0} up -d'.format(docker_exec_prefix),
         'sleep 4', # wait the db container boot up
         # migrate the django database
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),

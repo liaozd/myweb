@@ -1,3 +1,5 @@
+# RUN: docker-compose --verbose --project-name myweb --file docker-compose.staging.yml build
+# RUN: docker-compose --verbose --project-name myweb --file docker-compose.staging.yml up -d
 data:
   # pure files container
   image: busybox
