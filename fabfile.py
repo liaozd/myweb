@@ -52,7 +52,7 @@ def deploy(where='local', branch='staging'):
         'echo "python /git-repos/myweb/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"',
     ]
 
-    with deploy_cd('branch_fullpath'):
+    with deploy_cd(branch_fullpath):
         for command in deploy_commands:
             deploy_run(command)
 
