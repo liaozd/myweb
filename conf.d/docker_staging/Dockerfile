@@ -29,20 +29,22 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 ENV PYTHONUNBUFFERED 1
 
-ENV CODEPATH /git-repos/myweb
-#RUN mkdir -p $CODEPATH
-WORKDIR $CODEPATH
-ADD . .
-RUN pip install -r conf.d/requirements/docker-web-container.txt
-RUN ln -sf $CODEPATH/conf.d/nginx/myweb_nginx.conf /etc/nginx/conf.d/
-RUN ln -sf $CODEPATH/conf.d/supervisor/supervisor.conf /etc/supervisor/conf.d/
+ADD conf.d/requirements/docker-web-container.txt .
+RUN pip install -r docker-web-container.txt
+ADD conf.d/nginx/myweb_nginx.conf /etc/nginx/conf.d/
+ADD conf.d/supervisor/supervisor.conf /etc/supervisor/conf.d/
+
+ENV SRC /git-repos/myweb
+#RUN mkdir -p ${SRC}
+WORKDIR $SRC
+
 
 ##################################################
 # tools for debuging, this is just for temporary
-# RUN apt-get -qq install vim
+RUN apt-get -qq install vim
 # RUN apt-get -qq install tree
-# RUN apt-get -qq install procps
-# RUN apt-get install -qq postgresql-client
+RUN apt-get -qq install procps
+RUN apt-get install -qq postgresql-client
 ##################################################
 
 cmd ["/usr/bin/supervisord", "-n"]

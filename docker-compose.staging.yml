@@ -4,6 +4,8 @@ data:
   # pure files container
   image: busybox
   volumes:
+    # source code
+    # - /git-repos/myweb_staging:/git-repos/myweb_staging
     # postgres database
     - /etc/postgresql:/etc/postgresql
     - /var/lib/postgresql:/var/lib/postgresql #TODO mount host to the postgresql database path
@@ -11,6 +13,7 @@ data:
     - /var/log/postgresql:/var/log/postgresql
     - /var/log/nginx:/var/log/nginx
     - /var/log/supervisor:/var/log/supervisor
+
 
 db:
   image: postgres
@@ -23,11 +26,11 @@ db:
     - "5433:5432" # conflic with local install posgresql, map to the port other than 5432
 #TODO /var/lib/postgresql/data is permission by postgres user, that's why file can not be saved
 
-production:
+staging:
   build: .
   ports:
-    - "80:80"
-    - "443:443"
+    - "8000:80"
+    - "4443:443"
   links:
     - db
   volumes_from:

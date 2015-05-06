@@ -1,9 +1,10 @@
 # myweb
-personal website + blog
+blog + app
 
-# 
-#TODO put in init
-cd ~/git-repos/myweb/mysite/
+two nginx containers running at the same time, production and staging, source codes are ADD to the containers.
+postgres container running for both
+data container for loging or maybe postgres database files
+
 
 gunicorn --chdir src mysite.wsgi:application --bind=127.0.0.1:8020 --workers 1 --daemon --reload
 
