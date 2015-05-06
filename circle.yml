@@ -14,4 +14,4 @@ deployment:
   staging:
     branch: staging
     commands:
-      - fab deploy:branch=staging
+      - fab deploy:where=remote,branch=staging
