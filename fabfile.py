@@ -43,7 +43,7 @@ def deploy(where='local', branch='staging'):
         # clean image name/tag with '<none>'
         'docker-compose stop',
         'export IMAGENONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGENONE"  ] || docker rmi -f $IMAGENONE',
-        'docker-compose --file docker-compose.{0}.yml up -d'.format(branch),
+        'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml up -d'.format(branch),
         'sleep 4', # wait the db container boot up
         # migrate the django database
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
