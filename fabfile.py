@@ -32,24 +32,26 @@ def deploy(where='local', branch='staging'):
     branch_fullpath = '/git-repos/myweb.branch.{0}'.format(branch)
     git_url = 'https://github.com/liaozd/myweb.git'
     docker_exec_prefix = 'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml'.format(branch)
+
     # clean before deploy
     deploy_run('rm -rf {0}'.format(branch_fullpath))
     deploy_run('mkdir -p /git-repos')
-    deploy_run('git clone -b {branch} --single-branch {url} {path}'.format(branch=branch, url=git_url, path=branch_fullpath))
+    deploy_run(
+        'git clone -b {branch} --single-branch {url} {path}'.format(branch=branch, url=git_url, path=branch_fullpath))
 
     deploy_commands = [
-        'uname -nvr', # show maching info
+        'uname -nvr',  # show machine info
         # rebuild docker containers
         '{0} build'.format(docker_exec_prefix),
         # clean image name/tag with '<none>'
         '{0} stop'.format(docker_exec_prefix),
-        # 'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml stop'.format(branch),
-        'export IMAGENONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGENONE"  ] || docker rmi -f $IMAGENONE',
+        'export IMAGES_NONE=$(docker images -q --filter "dangling=True");\
+        [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
         '{0} up -d'.format(docker_exec_prefix),
-        'sleep 4', # wait the db container boot up
+        'sleep 4',  # wait the db container boot up
         # migrate the django database
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
-        #TODO createsuperuser none interactive
+        # TODO createsuperuser none interactive
         'echo "docker exec -ti myweb_{0}_1 bash"'.format(branch),
         'echo "python /git-repos/myweb/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"',
     ]
@@ -66,4 +68,3 @@ def deploy_static():
         local_dir=env.local_static_root,
         # delete=True # <-- Be careful with this
     )
-
