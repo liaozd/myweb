@@ -9,6 +9,7 @@ from src.mysite.settings import STATIC_ROOT, BASE_DIR
 # Just put the aws key there then, it works.
 env.use_ssh_config = True
 env.hosts = ['ec2-52-74-132-196.ap-southeast-1.compute.amazonaws.com']
+env.user = 'ubuntu'
 
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
@@ -19,8 +20,8 @@ def deploy(where='local', branch='staging'):
     """
     build containers on local using fabric local(), lcd(),
     or remote using fabric run(), cd()
-    RUN: fab deploy:where=local, branch=staging
-    RUN: fab deploy:where=local, branch=production
+    RUN: fab deploy:where=local,branch=staging
+    RUN: fab deploy:where=remote,branch=production
     """
     if where == 'local':
         deploy_run = getattr(fabric.api, 'local')
