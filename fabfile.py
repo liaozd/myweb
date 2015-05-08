@@ -33,7 +33,7 @@ def deploy(where='local', branch='staging'):
     git_url = 'https://github.com/liaozd/myweb.git'
     docker_exec_prefix = 'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml'.format(branch)
 
-    # clean before deploy
+    # clean everything before deploy
     deploy_run('rm -rf {0}'.format(branch_fullpath))
     deploy_run('mkdir -p /git-repos')
     deploy_run(
