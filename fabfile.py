@@ -8,7 +8,7 @@ from src.mysite.settings import STATIC_ROOT, BASE_DIR
 # but in circleci.com -> project settings -> SSH Permisions
 # Just put the aws key there then, it works.
 env.use_ssh_config = True
-env.hosts = ['ec2-52-74-40-130.ap-southeast-1.compute.amazonaws.com']
+env.hosts = ['ec2-52-74-132-196.ap-southeast-1.compute.amazonaws.com']
 
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
