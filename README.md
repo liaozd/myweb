@@ -1,3 +1,6 @@
+[![Circle CI](https://circleci.com/gh/liaozd/myweb/tree/staging.svg?style=svg)](https://circleci.com/gh/liaozd/myweb/tree/staging)
+[![Circle CI](https://circleci.com/gh/liaozd/myweb/tree/production.svg?style=svg)](https://circleci.com/gh/liaozd/myweb/tree/production)
+
 # myweb
 blog + app
 
