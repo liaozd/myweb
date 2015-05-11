@@ -1,7 +1,6 @@
 # RUN: docker-compose --verbose --project-name myweb --file docker-compose.production.yml build
 # RUN: docker-compose --verbose --project-name myweb --file docker-compose.production.yml up -d
 data:
-  # pure files container
   image: busybox
   volumes:
     # postgres database
@@ -29,6 +28,8 @@ production:
   ports:
     - "80:80"
     - "443:443"
+  environment:
+    - DJANGO_ENVIRONMENT=production
   links:
     - db
   volumes_from:

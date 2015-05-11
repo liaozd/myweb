@@ -1,7 +1,7 @@
 import os
 from os.path import normpath, join, dirname
 
-# BASE_DIR should be /git-repos/myweb/src
+# The BASE_DIR is /git-repos/myweb/src
 BASE_DIR = dirname(dirname(dirname(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -13,8 +13,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
@@ -23,8 +21,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # Third party apps
     'django_markdown',
+
     # Internal apps
     'myblog',
 
@@ -45,21 +45,6 @@ ROOT_URLCONF = 'conf.urls'
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 
-# container database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'pass'),
-        'HOST': 'db',
-        'PORT': 5432,
-    }
-}
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Singapore'
@@ -69,7 +54,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 STATIC_URL = '/static/'
 
@@ -85,3 +69,13 @@ STATICFILES_DIRS = (
 TEMPLATE_DIRS = (
     join(BASE_DIR, 'templates'),
 )
+
+
+ENVIRONMENT = os.getenv("DJANGO_ENVIRONMENT")
+if ENVIRONMENT == "production":
+    from production import *
+elif ENVIRONMENT == "staging":
+    from staging import *
+else:
+    # local development using sqlite3 database
+    from dev import *

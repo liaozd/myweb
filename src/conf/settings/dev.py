@@ -1,6 +1,7 @@
 # settings for local development
 import os
-from src.conf.settings.base import BASE_DIR
+from base import BASE_DIR
+
 
 DATABASES = {
     'default': {

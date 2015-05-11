@@ -1,11 +1,8 @@
 # RUN: docker-compose --verbose --project-name myweb --file docker-compose.staging.yml build
 # RUN: docker-compose --verbose --project-name myweb --file docker-compose.staging.yml up -d
 data:
-  # pure files container
   image: busybox
   volumes:
-    # source code
-    # - /git-repos/myweb_staging:/git-repos/myweb_staging
     # postgres database
     - /etc/postgresql:/etc/postgresql
     - /var/lib/postgresql:/var/lib/postgresql #TODO mount host to the postgresql database path
@@ -31,6 +28,8 @@ staging:
   ports:
     - "8000:80"
     - "4443:443"
+  environment:
+    - DJANGO_ENVIRONMENT=staging
   links:
     - db
   volumes_from:
