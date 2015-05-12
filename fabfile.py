@@ -22,9 +22,11 @@ def deploy(to='local', branch='staging'):
     RUN: fab deploy:to=local,branch=staging
     RUN: fab deploy:to=remote,branch=production
     """
+    print "Deploying {0} branch to {1}.".format(branch, to)
     if to == 'local':
         deploy_run = getattr(fabric.api, 'local')
         deploy_cd = getattr(fabric.api, 'lcd')
+
     elif to == 'remote':
         deploy_run = getattr(fabric.api, 'run')
         deploy_cd = getattr(fabric.api, 'cd')
@@ -45,8 +47,7 @@ def deploy(to='local', branch='staging'):
         '{0} build'.format(docker_exec_prefix),
         # clean image name/tag with '<none>'
         '{0} stop'.format(docker_exec_prefix),
-        'export IMAGES_NONE=$(docker images -q --filter "dangling=True");\
-        [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
+        'IMAGES_NONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
         '{0} up -d'.format(docker_exec_prefix),
         'sleep 4',  # wait the db container boot up
         # migrate the django database
