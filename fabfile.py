@@ -15,17 +15,17 @@ env.local_static_root = STATIC_ROOT
 env.remote_static_root = '/git-repos/myweb/mysite/static'
 
 
-def deploy(where='local', branch='staging'):
+def deploy(to='local', branch='staging'):
     """
     build containers on local using fabric local(), lcd(),
     or remote using fabric run(), cd()
-    RUN: fab deploy:where=local,branch=staging
-    RUN: fab deploy:where=remote,branch=production
+    RUN: fab deploy:to=local,branch=staging
+    RUN: fab deploy:to=remote,branch=production
     """
-    if where == 'local':
+    if to == 'local':
         deploy_run = getattr(fabric.api, 'local')
         deploy_cd = getattr(fabric.api, 'lcd')
-    elif where == 'remote':
+    elif to == 'remote':
         deploy_run = getattr(fabric.api, 'run')
         deploy_cd = getattr(fabric.api, 'cd')
     # env

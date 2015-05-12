@@ -1,6 +1,6 @@
-machine:
-  services:
-    - docker
+#machine:
+#  services:
+#    - docker
 dependencies:
   pre:
     - sudo bash -c "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
@@ -14,8 +14,8 @@ deployment:
   staging:
     branch: staging
     commands:
-      - fab deploy:where=remote,branch=staging
+      - fab deploy:to=remote,branch=staging
   production:
     branch: production
     commands:
-      - fab deploy:where=remote,branch=production
+      - fab deploy:to=remote,branch=production
