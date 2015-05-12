@@ -2,7 +2,8 @@
 import os
 
 DEBUG = False
-ALLOWED_HOSTS = ['.liaozd.info',]
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['.liaozd.info',]
 
 
 DATABASES = {
