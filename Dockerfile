@@ -39,9 +39,9 @@ RUN ln -sf $CODEPATH/conf.d/supervisor/supervisor.conf /etc/supervisor/conf.d/
 
 ##################################################
 # tools for debuging, this is just for temporary
-# RUN apt-get -qq install vim
-# RUN apt-get -qq install tree
-# RUN apt-get -qq install procps
+RUN apt-get -qq install vim
+RUN apt-get -qq install tree
+RUN apt-get -qq install procps
 # RUN apt-get install -qq postgresql-client
 ##################################################
 

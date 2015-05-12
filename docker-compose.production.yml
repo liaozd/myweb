@@ -1,5 +1,5 @@
-# RUN: docker-compose --verbose --project-name myweb --file docker-compose.production.yml build
-# RUN: docker-compose --verbose --project-name myweb --file docker-compose.production.yml up -d
+# RUN:
+# docker-compose --verbose --project-name myweb --file docker-compose.production.yml build && docker-compose --verbose --project-name myweb --file docker-compose.production.yml up -d
 data:
   image: busybox
   volumes:
