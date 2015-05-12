@@ -2,7 +2,7 @@ import fabric
 from fabric.contrib import project
 from fabric.api import local, cd
 from fabric.state import env
-from src.mysite.settings import STATIC_ROOT, BASE_DIR
+from src.conf.settings.base import STATIC_ROOT, BASE_DIR
 
 # to use ~/.ssh/config
 # but in circleci.com -> project settings -> SSH Permisions
