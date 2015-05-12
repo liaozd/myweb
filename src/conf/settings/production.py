@@ -1,9 +1,8 @@
-# django setting for production django docker container
+# django setting for Production branch
 import os
 
 DEBUG = False
 ALLOWED_HOSTS = ['.liaozd.info']
-
 
 DATABASES = {
     'default': {
