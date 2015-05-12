@@ -49,7 +49,7 @@ def deploy(to='local', branch='staging'):
         '{0} stop'.format(docker_exec_prefix),
         'IMAGES_NONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
         '{0} up -d'.format(docker_exec_prefix),
-        'sleep 4',  # wait the db container boot up
+        'sleep 5',  # wait the db container boot up
         # migrate the django database
         #TODO put docker exec in a function?
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
