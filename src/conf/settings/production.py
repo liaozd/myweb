@@ -1,7 +1,7 @@
-# # django setting for production django docker container
+# django setting for production django docker container
 import os
 
-DEBUG = False
+# DEBUG = False
 
 DATABASES = {
     'default': {
