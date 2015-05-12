@@ -22,7 +22,7 @@ def deploy(to='local', branch='staging'):
     RUN: fab deploy:to=local,branch=staging
     RUN: fab deploy:to=remote,branch=production
     """
-    print "Deploying {0} branch to {1}.".format(branch, to)
+    print "#####Deploying {0} branch to {1}#####".format(branch, to)
     if to == 'local':
         deploy_run = getattr(fabric.api, 'local')
         deploy_cd = getattr(fabric.api, 'lcd')
@@ -51,10 +51,13 @@ def deploy(to='local', branch='staging'):
         '{0} up -d'.format(docker_exec_prefix),
         'sleep 4',  # wait the db container boot up
         # migrate the django database
+        #TODO put docker exec in a function?
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
-        # TODO createsuperuser none interactive
+        #TODO createsuperuser none interactive
         'echo "docker exec -ti myweb_{0}_1 bash"'.format(branch),
         'echo "python /git-repos/myweb/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"',
+        # deploy static code
+        'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py collectstatic --noinput -v3'.format(branch),
     ]
 
     with deploy_cd(branch_fullpath):
