@@ -2,6 +2,8 @@
 import os
 
 DEBUG = False
+ALLOWED_HOSTS = ['.liaozd.info',]
+
 
 DATABASES = {
     'default': {
