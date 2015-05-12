@@ -22,7 +22,7 @@ def deploy(to='local', branch='staging'):
     RUN: fab deploy:to=local,branch=staging
     RUN: fab deploy:to=remote,branch=production
     """
-    print "#####Deploying {0} branch to {1}#####".format(branch, to)
+    print " Deploying {0} branch to {1} ".format(branch, to).center(70, '#')
     if to == 'local':
         deploy_run = getattr(fabric.api, 'local')
         deploy_cd = getattr(fabric.api, 'lcd')
