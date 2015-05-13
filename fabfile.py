@@ -48,12 +48,15 @@ def deploy(to='local', branch='staging'):
         # clean image name/tag with '<none>'
         '{0} stop'.format(docker_exec_prefix),
         'IMAGES_NONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
+        # TODO consider backup/restore your data
+        '[ -z "$DB_CONTAINER"  ] || DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres)',
+        'docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres',
         '{0} up -d'.format(docker_exec_prefix),
-        'sleep 5',  # wait the db container boot up
+        # 'sleep 5',  # wait the db container boot up
         # migrate the django database
-        #TODO put docker exec in a function?
+        # TODO put docker exec in a function?
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
-        #TODO createsuperuser none interactive
+        # TODO createsuperuser none interactive
         'echo "docker exec -ti myweb_{0}_1 bash"'.format(branch),
         'echo "python /git-repos/myweb/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"',
         # deploy static code

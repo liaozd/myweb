@@ -1,36 +1,14 @@
 # Staging Container RUN:
 # docker-compose --verbose --project-name myweb --file docker-compose.staging.yml build && docker-compose --verbose --project-name myweb --file docker-compose.staging.yml up -d
-data:
-  image: busybox
-  volumes:
-    # postgres database
-    - /etc/postgresql:/etc/postgresql
-    - /var/lib/postgresql:/var/lib/postgresql #TODO mount host to the postgresql database path
-    # nginx, postgres and supervisor logs
-    - /var/log/postgresql:/var/log/postgresql
-    - /var/log/nginx:/var/log/nginx
-    - /var/log/supervisor:/var/log/supervisor
-
-db:
-  image: postgres
-  volumes_from:
-    - data
-  environment:
-    - POSTGRES_PASSWORD=pass
-  ports:
-    # "HOST:CONTAINER"
-    - "5433:5432" # conflic with local install posgresql, map to the port other than 5432
-#TODO /var/lib/postgresql/data is permission by postgres user, that's why file can not be saved
-
-# Must named by branch name, so the fabric works
-staging:
+staging: # Branch Name for this
   build: .
   ports:
     - "8000:80"
     - "4443:443"
   environment:
     - DJANGO_ENVIRONMENT=staging
-  links:
-    - db
-  volumes_from:
-    - data
+  external_links:
+    - db #Build db container RUN: docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres
+  volumes:
+    - /var/log/nginx:/var/log/nginx
+    - /var/log/supervisor:/var/log/supervisor
