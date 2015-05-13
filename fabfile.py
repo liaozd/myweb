@@ -48,9 +48,10 @@ def deploy(to='local', branch='staging'):
         '{0} stop'.format(docker_exec_prefix),
         'IMAGES_NONE=$(docker images -q --filter "dangling=True"); \
          [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
+
         # TODO consider backup/restore your data
         '[ -z "$DB_CONTAINER"  ] || export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres)',
-        'docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres',
+
         '{0} up -d'.format(docker_exec_prefix),
         # migrate the django database
         # TODO put docker exec in a function?
