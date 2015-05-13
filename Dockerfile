@@ -8,7 +8,6 @@ MAINTAINER Liao Zhuodi <liao_zd@hotmail.com>
 
 RUN echo 'Asia/Shanghai' > /etc/timezone && dpkg-reconfigure --frontend noninteractive tzdata
 
-# Install nginx service
 # Add application repository URL to the default sources
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 RUN echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/apt/sources.list
@@ -21,7 +20,7 @@ RUN apt-get -qq install \
 # psycopg2 Python-PostgreSQL Database Adapter dependency packages
 RUN apt-get -qq install libpq-dev
 
-# Install nginx
+# INSTALL NGINX
 RUN apt-get install -qq nginx
 RUN rm -f /etc/nginx/conf.d/*
 # Append "daemon off;" to the beginning of the configuration
@@ -38,9 +37,9 @@ RUN ln -sf $CODEPATH/conf.d/supervisor/supervisor.conf /etc/supervisor/conf.d/
 
 ##################################################
 # tools for debuging, this is just for temporary
-RUN apt-get -qq install vim
-RUN apt-get -qq install tree
-RUN apt-get -qq install procps
+# RUN apt-get -qq install vim
+# RUN apt-get -qq install tree
+# RUN apt-get -qq install procps
 # RUN apt-get install -qq postgresql-client
 ##################################################
 
