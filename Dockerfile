@@ -30,7 +30,6 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 ENV PYTHONUNBUFFERED 1
 
 ENV CODEPATH /git-repos/myweb
-#RUN mkdir -p $CODEPATH
 WORKDIR $CODEPATH
 ADD . .
 RUN pip install -r conf.d/requirements/docker-web-container.txt

@@ -26,11 +26,10 @@ def deploy(to='local', branch='staging'):
     if to == 'local':
         deploy_run = getattr(fabric.api, 'local')
         deploy_cd = getattr(fabric.api, 'lcd')
-
     elif to == 'remote':
         deploy_run = getattr(fabric.api, 'run')
         deploy_cd = getattr(fabric.api, 'cd')
-    # env
+    # ENVs
     branch_fullpath = '/git-repos/myweb.branch.{0}'.format(branch)
     git_url = 'https://github.com/liaozd/myweb.git'
     docker_exec_prefix = 'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml'.format(branch)
@@ -47,12 +46,12 @@ def deploy(to='local', branch='staging'):
         '{0} build'.format(docker_exec_prefix),
         # clean image name/tag with '<none>'
         '{0} stop'.format(docker_exec_prefix),
-        'IMAGES_NONE=$(docker images -q --filter "dangling=True"); [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
+        'IMAGES_NONE=$(docker images -q --filter "dangling=True"); \
+         [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
         # TODO consider backup/restore your data
         '[ -z "$DB_CONTAINER"  ] || DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres)',
         'docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres',
         '{0} up -d'.format(docker_exec_prefix),
-        # 'sleep 5',  # wait the db container boot up
         # migrate the django database
         # TODO put docker exec in a function?
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
