@@ -12,3 +12,4 @@ staging: # Branch Name for this
   volumes:
     - /var/log/nginx:/var/log/nginx
     - /var/log/supervisor:/var/log/supervisor
+  restart: always

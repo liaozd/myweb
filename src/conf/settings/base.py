@@ -1,8 +1,13 @@
 import os
-from os.path import normpath, join, dirname
+import sys
+from os.path import normpath, join, dirname, abspath, basename
 
 # The BASE_DIR is /git-repos/myweb/src
-BASE_DIR = dirname(dirname(dirname(__file__)))
+BASE_DIR = dirname(dirname(abspath(__file__)))
+
+# SITE_ROOT = dirname(dirname(dirname(abspath(__file__))))
+# SITE_NAME = basename(SITE_ROOT)
+# sys.path.append(SITE_ROOT)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(32))
@@ -22,11 +27,12 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Third party apps
+    # Third Party Apps
     'django_markdown',
 
-    # Internal apps
+    # Internal Apps
     'myblog',
+    'fgfw',
 
 )
 
