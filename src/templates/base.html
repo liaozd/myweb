@@ -22,32 +22,36 @@
 <body>
 <div class="blog-masthead">
     <div class="container">
+
         <nav class="blog-nav">
             <a class="blog-nav-item active" href="{% url "index" %}">吶喊</a>
             {#            <a class="blog-nav-item" href="#">走過的路</a>#}
             {#                        <a class="blog-nav-item" href="#">跑过的思想</a>#}
-            <a class="blog-nav-item" href="#">fGFW</a>
+            <a class="blog-nav-item" href="{% url "fgfw" %}">fGFW</a>
         </nav>
     </div>
+
 </div>
+
 <div class="container">
-    <div class="blog-header">
-        <h1 class="blog-title">温暖的呐喊</h1>
-        <p class="lead blog-description">小巷又深又长，我拿着钥匙敲着厚厚的墙</p>
-    </div>
-    <div class="row">
-        <div class="col-sm-8 blog-main">
-            {% block blog_entries %} {% endblock %}
-            {% if is_paginated %}
-                <ul class="pager">
-                    <li {% if not page_obj.has_previous %}class="disabled"{% endif %}><a {% if page_obj.has_previous %}href="?page={{ page_obj.previous_page_number }}"{% endif %}>Prev</a></li>
-                    <li {% if not page_obj.has_next %}class="disabled"{% endif %}><a {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}"{% endif %}>Next</a></li>
-                </ul>
-            {% endif %}
-        </div><!-- /.blog-main -->
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-            <div class="sidebar-module sidebar-module-inset">
-                <p>性命攸关<small> about me:</small>
+    {%  block page_content %}
+        <div class="blog-header">
+            <h1 class="blog-title">温暖的呐喊</h1>
+            <p class="lead blog-description">小巷又深又长，我拿着钥匙敲着厚厚的墙</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 blog-main">
+                {% block blog_entries %}{% endblock %}
+                {% if is_paginated %}
+                    <ul class="pager">
+                        <li {% if not page_obj.has_previous %}class="disabled"{% endif %}><a {% if page_obj.has_previous %}href="?page={{ page_obj.previous_page_number }}"{% endif %}>Prev</a></li>
+                        <li {% if not page_obj.has_next %}class="disabled"{% endif %}><a {% if page_obj.has_next %}href="?page={{ page_obj.next_page_number }}"{% endif %}>Next</a></li>
+                    </ul>
+                {% endif %}
+            </div><!-- /.blog-main -->
+            <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                <div class="sidebar-module sidebar-module-inset">
+                    <p>性命攸关<small> about me:</small>
                     <div class="my-social-media-links">
                         <a href="https://github.com/liaozd/">
                             <img alt="github" src="{% static "icons/webfooter/icon_git.svg" %}" width="22" height="22" />
@@ -55,9 +59,9 @@
                         <a href="http://weibo.com/liaozd">
                             <img alt="weibo" src="{% static "icons/webfooter/icon_weibo.svg" %}" width="22" height="22" />
                         </a>
-{#                        <a href="http://www.douban.com/people/liaozd/">#}
-{#                            <img alt="douban" src="{% static "icons/webfooter/icon_douban.svg" %}" />#}
-{#                        </a>#}
+                        {#                        <a href="http://www.douban.com/people/liaozd/">#}
+                        {#                            <img alt="douban" src="{% static "icons/webfooter/icon_douban.svg" %}" />#}
+                        {#                        </a>#}
                         <a href="https://www.linkedin.com/pub/liao-zhuodi/23/83/b74">
                             <img alt="linkedin" src="{% static "icons/webfooter/icon_linkedin.svg" %}" width="22" height="22" />
                         </a>
@@ -65,20 +69,20 @@
                             <img alt="fb" src="{% static "icons/webfooter/icon_facebook.svg" %}" width="21" height="21" />
                         </a>
                     </div> <!-- /.my-social-media-links -->
-                </p>
-                <p>男, 生于80年代上海, 长在90年代北京, 活在新世纪路上, 人在呢别烧纸。
-                    死瘦子没胖过。总是尝试拿前人伟大的思想在自己的脑中跑马, fail, 典型读书不多想忒多。</p>
-                <p>悲观厌世理性技术乐观派，相信技术终究解决所有问题。十年电影人，梦想当一名放映员，却在有生之年亲见胶片被数字淘汰。
-                    内心深处挣扎做个匠人，却不幸在新加坡沦为程序猿。</p>
-                <p>择一城终老，等待永逝降临……</p>
+                    </p>
+                    <p>男, 生于80年代上海, 长在90年代北京, 活在新世纪路上, 人在呢别烧纸。
+                        死瘦子没胖过。总是尝试拿前人伟大的思想在自己的脑中跑马, fail, 典型读书不多想忒多。</p>
+                    <p>悲观厌世理性技术乐观派，相信技术终究解决所有问题。十年电影人，梦想当一名放映员，却在有生之年亲见胶片被数字淘汰。
+                        内心深处挣扎做个匠人，却不幸在新加坡沦为程序猿。</p>
+                    <p>择一城终老，等待永逝降临……</p>
 
-            </div>
-        </div><!-- /.blog-sidebar -->
-    </div><!-- /.row -->
+                </div>
+            </div><!-- /.blog-sidebar -->
+        </div><!-- /.row -->
+    {% endblock %} <!-- block page_content -->
 </div><!-- /.container -->
+
 <div class="blog-footer">
-
-
     <p>
         <a href="#">Back to top</a>
     </p>

@@ -26,6 +26,17 @@ class Migration(migrations.Migration):
                 'verbose_name': 'Blog Entry',
                 'verbose_name_plural': 'Blog Entries',
             },
-            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='Tag',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('slug', models.SlugField(unique=True, max_length=200)),
+            ],
+        ),
+        migrations.AddField(
+            model_name='entry',
+            name='tags',
+            field=models.ManyToManyField(to='myblog.Tag'),
         ),
     ]

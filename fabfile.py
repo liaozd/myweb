@@ -8,7 +8,7 @@ from src.conf.settings.base import STATIC_ROOT, BASE_DIR
 # but in circleci.com -> project settings -> SSH Permisions
 # Just put the aws key there then, it works.
 env.use_ssh_config = True
-env.hosts = ['ec2-52-74-132-196.ap-southeast-1.compute.amazonaws.com']
+env.hosts = ['ec2-52-74-230-107.ap-southeast-1.compute.amazonaws.com']
 
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
@@ -20,6 +20,7 @@ def deploy(to='local', branch='staging'):
     build containers on local using fabric local(), lcd(),
     or remote using fabric run(), cd()
     RUN: fab deploy:to=local,branch=staging
+    RUN: fab deploy:to=remote,branch=staging
     RUN: fab deploy:to=remote,branch=production
     """
     print " Deploying {0} branch to {1} ".format(branch, to).center(70, '#')
@@ -49,7 +50,7 @@ def deploy(to='local', branch='staging'):
         'IMAGES_NONE=$(docker images -q --filter "dangling=True"); \
          [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
 
-        # TODO consider backup/restore your data
+        # TODO consider backup/restore your data in the db container
         '[ -z "$DB_CONTAINER"  ] || export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres)',
 
         '{0} up -d'.format(docker_exec_prefix),
