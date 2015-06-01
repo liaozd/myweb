@@ -13,15 +13,15 @@ RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 573BFD6B3D8FBC641079A6ABABF5
 RUN echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/apt/sources.list
 # Update the repository
 RUN apt-get -y update
-RUN apt-get -qq install \
+RUN apt-get -y install \
     python python-pip python-dev \
     supervisor
 
 # psycopg2 Python-PostgreSQL Database Adapter dependency packages
-RUN apt-get -qq install libpq-dev
+RUN apt-get -y install libpq-dev
 
 # INSTALL NGINX
-RUN apt-get install -qq nginx
+RUN apt-get install -y nginx
 RUN rm -f /etc/nginx/conf.d/*
 # Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
