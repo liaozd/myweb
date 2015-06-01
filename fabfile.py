@@ -1,3 +1,4 @@
+import os
 import fabric
 from fabric.contrib import project
 from fabric.api import local, cd
@@ -8,12 +9,11 @@ from src.conf.settings.base import STATIC_ROOT, BASE_DIR
 # but in circleci.com -> project settings -> SSH Permisions
 # Just put the aws key there then, it works.
 env.use_ssh_config = True
-env.hosts = ['ec2-52-74-46-57.ap-southeast-1.compute.amazonaws.com']
+env.hosts = os.environ['MYWEB']
 
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
 env.remote_static_root = '/git-repos/myweb/mysite/static'
-
 
 def deploy(to='local', branch='staging'):
     """
