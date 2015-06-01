@@ -8,7 +8,7 @@ from src.conf.settings.base import STATIC_ROOT, BASE_DIR
 # but in circleci.com -> project settings -> SSH Permisions
 # Just put the aws key there then, it works.
 env.use_ssh_config = True
-env.hosts = ['ec2-52-74-230-107.ap-southeast-1.compute.amazonaws.com']
+env.hosts = ['ec2-52-74-178-154.ap-southeast-1.compute.amazonaws.com']
 
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
@@ -55,12 +55,12 @@ def deploy(to='local', branch='staging'):
 
         '{0} up -d'.format(docker_exec_prefix),
         # migrate the django database
-        # TODO put docker exec in a function?
+        # TODO maybe put docker exec in a function?
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
         # TODO createsuperuser none interactive
         'echo "docker exec -ti myweb_{0}_1 bash"'.format(branch),
         'echo "python /git-repos/myweb/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"',
-        # deploy static code
+        # deploy static files
         'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py collectstatic --noinput -v3'.format(branch),
     ]
 
