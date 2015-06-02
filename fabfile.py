@@ -51,7 +51,8 @@ def deploy(to='local', branch='staging'):
          [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
 
         # TODO consider backup/restore your data in the db container
-        '[ -n "$DB_CONTAINER"  ] || export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres)',
+        '[ -n "$DB_CONTAINER"  ] || \
+        export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --restart=always --name db postgres)',
 
         '{0} up -d'.format(docker_exec_prefix),
         # migrate the django database
