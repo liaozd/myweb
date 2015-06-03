@@ -1,9 +1,8 @@
 import os
-import sys
-from os.path import normpath, join, dirname, abspath, basename
+from os.path import normpath, join, dirname, abspath
 
 # The BASE_DIR is /git-repos/myweb/src
-BASE_DIR = dirname(dirname(abspath(__file__)))
+BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
 
 # SITE_ROOT = dirname(dirname(dirname(abspath(__file__))))
 # SITE_NAME = basename(SITE_ROOT)
@@ -76,7 +75,7 @@ TEMPLATE_DIRS = (
     join(BASE_DIR, 'templates'),
 )
 
-
+# $DJANGO_ENVIRONMENT is set in docker-compose yaml file
 ENVIRONMENT = os.getenv("DJANGO_ENVIRONMENT")
 if ENVIRONMENT == "production":
     from production import *

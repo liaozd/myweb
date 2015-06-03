@@ -8,7 +8,7 @@ production:
   environment:
     - DJANGO_ENVIRONMENT=production
   external_links:
-    - db #Build db container RUN: docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres
+    - db #Build db container RUN: docker run -e "POSTGRES_PASSWORD=pass" --restart=always -d --name db postgres
   volumes:
     - /var/log/nginx:/var/log/nginx
     - /var/log/supervisor:/var/log/supervisor

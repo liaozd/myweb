@@ -1,5 +1,5 @@
 from django import forms
-from src.fgfw.models import YouTubeURL
+from .models import YouTubeURL
 
 
 class YouTubeURLForm(forms.ModelForm):

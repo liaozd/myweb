@@ -1,5 +1,5 @@
 from django.contrib import admin
-from src.fgfw.models import YouTubeURL
+from .models import YouTubeURL
 
 
 class YouTubeURLAdmin(admin.ModelAdmin):
