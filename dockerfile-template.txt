@@ -1,7 +1,6 @@
-############################################################
+
 # Dockerfile to build Nginx Installed Containers
 # ref: https://github.com/nginxinc/docker-nginx/blob/e9202a4795d84a85499fcd6cda58ddde4cf4079d/Dockerfile
-############################################################
 
 FROM debian:wheezy
 MAINTAINER Liao Zhuodi <liao_zd@hotmail.com>
@@ -11,28 +10,29 @@ RUN echo 'Asia/Shanghai' > /etc/timezone && dpkg-reconfigure --frontend noninter
 # Add application repository URL to the default sources
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62
 RUN echo "deb http://nginx.org/packages/mainline/debian/ wheezy nginx" >> /etc/apt/sources.list
-# Update the repository
-RUN apt-get -yq update
-RUN apt-get -yq install \
+RUN apt-get -qq update
+RUN apt-get -qq install \
+    # python python-setuptools python-dev\
     python python-pip python-dev \
-    supervisor
+    supervisor \
+    gunicorn \
+    nginx \
+    # psycopg2 Python-PostgreSQL Database Adapter dependency packages
+    libpq-dev
+RUN apt-get -qq dist-upgrade
+# upgrade pip from 1.x to 6.x to enable --index-url option
+RUN pip install --upgrade pip
 
-# psycopg2 Python-PostgreSQL Database Adapter dependency packages
-RUN apt-get -yq install libpq-dev
-
-# INSTALL NGINX
-RUN apt-get install -yq nginx
 RUN rm -f /etc/nginx/conf.d/*
-# Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 ENV PYTHONUNBUFFERED 1
 
-ENV CODEPATH /git-repos/myweb
 WORKDIR $CODEPATH
+# $CODEPATH is the path inside the container
 ADD . .
-RUN pip install -r conf.d/requirements/docker-web-container.txt
-RUN ln -sf $CODEPATH/conf.d/nginx/myweb_nginx.conf /etc/nginx/conf.d/
+RUN pip install -r $CODEPATH/conf.d/requirements/docker-web-container.txt $PIP_INSTALL_SUFFIX
+RUN ln -sf $CODEPATH/conf.d/nginx/my_nginx.conf /etc/nginx/conf.d/
 RUN ln -sf $CODEPATH/conf.d/supervisor/supervisor.conf /etc/supervisor/conf.d/
 
 ##################################################
