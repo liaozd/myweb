@@ -84,7 +84,7 @@ def deploy(to='local', branch='staging'):
         'echo "docker exec -ti {project_name}_{branch}_1 bash"'.format(project_name=git_project_name, branch=branch),
         'echo "python /git-repos/{project_name}/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"'.format(project_name=git_project_name),
         # deploy static files
-        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py collectstatic --noinput -v3'.format(project_name=git_project_name),
+        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py collectstatic --noinput -v3'.format(project_name=git_project_name, branch=branch),
     ]
 
     with deploy_cd(branch_path):
