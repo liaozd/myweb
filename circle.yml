@@ -3,13 +3,13 @@
 #    - docker
 dependencies:
   pre:
-    - sudo bash -c "curl -L https://github.com/docker/compose/releases/download/1.2.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
+    - sudo bash -c "curl -L https://github.com/docker/compose/releases/download/1.4.1/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose"
     - sudo chmod +x /usr/local/bin/docker-compose
   override:
     - pip install -r conf.d/requirements/aws-host.txt
 test:
   override:
-    - echo "test here"
+    - echo "put test here in future"
 deployment:
   staging:
     branch: staging

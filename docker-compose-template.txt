@@ -1,0 +1,18 @@
+# ${BRANCH} Container RUN:
+# docker-compose --verbose --project-name ${PRJ_NAME} --file docker-compose.${BRANCH}.yml build
+# docker-compose --verbose --project-name ${PRJ_NAME} --file docker-compose.${BRANCH}.yml up -d
+
+${BRANCH}: # branch name of the project
+  build: .
+  ports:
+    - ${HTTP_PORT}
+    - ${HTTPS_PORT}
+  environment:
+    - DJANGO_ENVIRONMENT=${BRANCH}
+  external_links:
+    - db #Build db container RUN: docker run -e "POSTGRES_PASSWORD=pass" -d --name db postgres
+  volumes:
+    - /var/log/nginx:/var/log/nginx
+    - /var/log/supervisor:/var/log/supervisor
+    - ${HOME}/.cache/pip:/root/.cache/pip
+  restart: always

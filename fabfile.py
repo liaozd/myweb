@@ -1,25 +1,28 @@
 import os
+from os.path import dirname, basename
 import fabric
 from fabric.contrib import project
 from fabric.api import local, cd
 from fabric.state import env
 from src.conf.settings.base import STATIC_ROOT, BASE_DIR
 
-# to use ~/.ssh/config
-# but in circleci.com -> project settings -> SSH Permisions
-# Just put the aws key there then, it works.
+# In local dev, to load "~/.ssh/config" file
+# While in circleci.com
+# put the aws key in: project settings -> SSH Permissions,
 env.use_ssh_config = True
-env.hosts = os.environ['MYWEB']
+# set $MYSERVER in CI or in the environment file
+env.hosts = os.environ['MYSERVER']
 
 # Where the static files get collected locally. Your STATIC_ROOT setting.
 env.local_static_root = STATIC_ROOT
-env.remote_static_root = '/git-repos/myweb/mysite/static'
+env.remote_static_root = os.path.join(BASE_DIR, 'static/')
+
 
 def deploy(to='local', branch='staging'):
     """
     build containers on local using fabric local(), lcd(),
     or remote using fabric run(), cd()
-    RUN: fab deploy:to=local,branch=staging
+    RUN: fab deploy:to=local,branch=production
     RUN: fab deploy:to=remote,branch=staging
     RUN: fab deploy:to=remote,branch=production
     """
@@ -30,19 +33,34 @@ def deploy(to='local', branch='staging'):
     elif to == 'remote':
         deploy_run = getattr(fabric.api, 'run')
         deploy_cd = getattr(fabric.api, 'cd')
-    # ENVs
-    branch_fullpath = '/git-repos/myweb.branch.{0}'.format(branch)
-    git_url = 'https://github.com/liaozd/myweb.git'
-    docker_exec_prefix = 'docker-compose --verbose --project-name myweb --file docker-compose.{0}.yml'.format(branch)
+
+    # Consider of build environment in CI, hard code on the git_repos_path
+    git_repos_path = "/git-repos/myweb"
+    git_repos_root_path = dirname(git_repos_path)
+    git_project_name = basename(git_repos_path)
+    branch_path = '{fullpath_prefix}.branch.{branch}'.format(fullpath_prefix=git_repos_path, branch=branch)
+    # branch_path should be like: /git-repos/myweb.branch.dev/
+    git_url = 'https://github.com/liaozd/{0}.git'.format(git_project_name)
+    docker_exec_prefix = 'docker-compose --verbose --project-name {project_name} --file docker-compose.{branch}.yml'.\
+        format(project_name=git_project_name, branch=branch)
 
     # clean everything before deploy
-    deploy_run('rm -rf {0}'.format(branch_fullpath))
-    deploy_run('mkdir -p /git-repos')
+    deploy_run('rm -rf {0}'.format(branch_path))
+    deploy_run('mkdir -p {0}'.format(git_repos_root_path))
     deploy_run(
-        'git clone -b {branch} --single-branch {url} {path}'.format(branch=branch, url=git_url, path=branch_fullpath))
+        'git clone --quiet --branch {branch} --single-branch {url} {path}'.format(branch=branch,
+                                                                                  url=git_url,
+                                                                                  path=branch_path))
 
     deploy_commands = [
         'uname -nvr',  # show machine info
+
+        # generate different docker-compose file for different branches
+        'sh docker-compose-generator.sh',
+
+        # generate Dockerfile for different projects and environments
+        'sh dockerfile-generator.sh',
+
         # rebuild docker containers
         '{0} build'.format(docker_exec_prefix),
         # clean image name/tag with '<none>'
@@ -51,21 +69,28 @@ def deploy(to='local', branch='staging'):
          [ -z "$IMAGES_NONE"  ] || docker rmi -f $IMAGES_NONE',
 
         # TODO consider backup/restore your data in the db container
+        # TODO wait for DB_CONTAINER ready
+        # TODO sleep is not need in CI/aws, but need a few secs in local dev, I don't know why
         '[ -n "$DB_CONTAINER"  ] || \
-        export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --restart=always --name db postgres)',
+        export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --restart=always --name db postgres); \
+        sleep 7',
+        # wait for db container ready
 
         '{0} up -d'.format(docker_exec_prefix),
+
         # migrate the django database
-        # TODO maybe put docker exec in a function?
-        'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py migrate'.format(branch),
+        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py migrate'.\
+            format(project_name=git_project_name, branch=branch),
         # TODO createsuperuser none interactive
-        'echo "docker exec -ti myweb_{0}_1 bash"'.format(branch),
-        'echo "python /git-repos/myweb/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"',
+        'echo "docker exec -ti {project_name}_{branch}_1 bash"'.format(project_name=git_project_name, branch=branch),
+        'echo "python /git-repos/{project_name}/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"'.\
+            format(project_name=git_project_name),
         # deploy static files
-        'docker exec myweb_{0}_1 python /git-repos/myweb/src/manage.py collectstatic --noinput -v3'.format(branch),
+        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py collectstatic --noinput -v3'.\
+            format(project_name=git_project_name, branch=branch),
     ]
 
-    with deploy_cd(branch_fullpath):
+    with deploy_cd(branch_path):
         for command in deploy_commands:
             deploy_run(command)
 

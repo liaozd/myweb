@@ -67,3 +67,8 @@ tmp/
 
 # database
 *.sqlite3
+
+# my project
+docker-compose.production.yml
+docker-compose.staging.yml
+Dockerfile
