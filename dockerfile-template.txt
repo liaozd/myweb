@@ -28,8 +28,9 @@ RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
 ENV PYTHONUNBUFFERED 1
 
-WORKDIR $CODEPATH
 # $CODEPATH is the path inside the container
+WORKDIR $CODEPATH
+# copy all files inside local branch path to $CODEPATH
 ADD . .
 RUN pip install -r $CODEPATH/conf.d/requirements/docker-web-container.txt $PIP_INSTALL_SUFFIX
 RUN ln -sf $CODEPATH/conf.d/nginx/my_nginx.conf /etc/nginx/conf.d/

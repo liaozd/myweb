@@ -5,7 +5,7 @@
 PRJ_NAME=$(git remote -v  | grep fetch | sed "s#^.*/\(.*\).git (fetch)#\1#")
 export CODEPATH="$(dirname $(dirname $(readlink -f $0)))/$PRJ_NAME"
 
-# local machine pip from Aliyun CDN
+# local machine(inside GFW) pip source from Aliyun CDN
 if [ "$USER" = "neo" -o "$USER" = "liao" ]; then
     export PIP_INSTALL_SUFFIX="--index-url http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com"
 fi
