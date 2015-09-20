@@ -38,7 +38,7 @@ def deploy(to='local', branch='staging'):
     git_repos_path = "/git-repos/myweb"
     git_repos_root_path = dirname(git_repos_path)
     git_project_name = basename(git_repos_path)
-    branch_path = '{project_name}.branch.{branch}'.format(project_name=git_project_name, branch=branch)
+    branch_path = '{fullpath_prefix}.branch.{branch}'.format(fullpath_prefix=git_repos_path, branch=branch)
     # branch_path should be like: /git-repos/myweb.branch.dev/
     git_url = 'https://github.com/liaozd/{0}.git'.format(git_project_name)
     docker_exec_prefix = 'docker-compose --verbose --project-name {project_name} --file docker-compose.{branch}.yml'.\
