@@ -73,8 +73,7 @@ def deploy(to='local', branch='staging'):
         # TODO sleep is not need in CI/aws, but need a few secs in local dev, I don't know why
         '[ -n "$DB_CONTAINER"  ] || \
         export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --restart=always --name db postgres); \
-        sleep 7',
-        # wait for db container ready
+        sleep 7', # wait for db container ready
 
         '{0} up -d'.format(docker_exec_prefix),
 
