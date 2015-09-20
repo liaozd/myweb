@@ -70,7 +70,7 @@ def deploy(to='local', branch='staging'):
 
         # TODO consider backup/restore your data in the db container
         # TODO wait for DB_CONTAINER ready
-        # TODO sleep is not need in CI/aws, but need 5 secs in local dev, why?
+        # TODO sleep is not need in CI/aws, but need a few secs in local dev, I don't know why
         '[ -n "$DB_CONTAINER"  ] || \
         export DB_CONTAINER=$(docker run -e "POSTGRES_PASSWORD=pass" -d --restart=always --name db postgres); \
         sleep 7',
@@ -79,12 +79,15 @@ def deploy(to='local', branch='staging'):
         '{0} up -d'.format(docker_exec_prefix),
 
         # migrate the django database
-        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py migrate'.format(project_name=git_project_name, branch=branch),
+        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py migrate'.\
+            format(project_name=git_project_name, branch=branch),
         # TODO createsuperuser none interactive
         'echo "docker exec -ti {project_name}_{branch}_1 bash"'.format(project_name=git_project_name, branch=branch),
-        'echo "python /git-repos/{project_name}/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"'.format(project_name=git_project_name),
+        'echo "python /git-repos/{project_name}/src/manage.py createsuperuser --username liao --email liao_zd@hotmail.com"'.\
+            format(project_name=git_project_name),
         # deploy static files
-        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py collectstatic --noinput -v3'.format(project_name=git_project_name, branch=branch),
+        'docker exec {project_name}_{branch}_1 python /git-repos/{project_name}/src/manage.py collectstatic --noinput -v3'.\
+            format(project_name=git_project_name, branch=branch),
     ]
 
     with deploy_cd(branch_path):
