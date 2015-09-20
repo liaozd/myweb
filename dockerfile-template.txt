@@ -19,7 +19,7 @@ RUN apt-get -qq install \
     nginx \
     # psycopg2 Python-PostgreSQL Database Adapter dependency packages
     libpq-dev
-RUN apt-get -qq dist-upgrade
+RUN apt-get -y dist-upgrade
 # upgrade pip from 1.x to 6.x to enable --index-url option
 RUN pip install --upgrade pip
 
