@@ -33,7 +33,7 @@ WORKDIR $CODEPATH
 # copy all files inside local branch path to $CODEPATH
 ADD . .
 RUN pip install -r $CODEPATH/conf.d/requirements/docker-web-container.txt $PIP_INSTALL_SUFFIX
-RUN ln -sf $CODEPATH/conf.d/nginx/my_nginx.conf /etc/nginx/conf.d/
+RUN ln -sf $CODEPATH/conf.d/nginx/myweb_nginx.conf /etc/nginx/conf.d/
 RUN ln -sf $CODEPATH/conf.d/supervisor/supervisor.conf /etc/supervisor/conf.d/
 
 ##################################################
