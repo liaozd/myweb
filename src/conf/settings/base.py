@@ -17,7 +17,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-INSTALLED_APPS = (
+DJANGO_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.auth',
@@ -25,14 +25,17 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    # Third Party Apps
-    'django_markdown',
-
-    # Internal Apps
-    'myblog',
-
 )
+
+THIRD_PARTY_APPS = (
+    'django_markdown',
+)
+
+LOCAL_APPS = (
+    'myblog',
+)
+
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -51,7 +54,7 @@ WSGI_APPLICATION = 'conf.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Singapore'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

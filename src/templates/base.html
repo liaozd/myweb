@@ -1,11 +1,11 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Liao Zhuodi blog">
+    <meta name="description" content="Liao Zhuodi's Blog Site">
     <meta name="author" content="liao_zd@hotmail.com">
     <link rel="icon" href="{% static "icons/coding.ico" %}">
     <title>浮[圖] beta</title>
@@ -20,17 +20,25 @@
     <![endif]-->
 </head>
 <body>
-<div class="blog-masthead">
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation">
     <div class="container">
-
-        <nav class="blog-nav">
-            <a class="blog-nav-item active" href="{% url "index" %}">吶喊</a>
-            {#            <a class="blog-nav-item" href="#">走過的路</a>#}
-            {#                        <a class="blog-nav-item" href="#">跑过的思想</a>#}
-{#            <a class="blog-nav-item" href="{% url "fgfw" %}">fGFW</a>#}
-        </nav>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url "index" %}">吶喊</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单预留<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">菜单1</a></li>
+                        <li><a href="#">菜单2</a></li>
+                        <li><a href="#">菜单3</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">菜单4</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">关于</a></li>
+            </ul>
+        </div>
     </div>
-
 </div>
 
 <div class="container">
@@ -90,7 +98,7 @@
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="{% static "js/bootstrap.min.js" %}"></script>
 <script src="{% static "js/docs.min.js" %}"></script>
 </body>
