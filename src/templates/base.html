@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="个人博客，DCP，数字母盘，cinecanvase，字幕制作">
     <meta name="description" content="Liao Zhuodi's Blog Site">
-    <meta name="author" content="liao_zd@hotmail.com">
     <link rel="icon" href="{% static "icons/coding.ico" %}">
     <title>浮[圖] beta</title>
     <!-- Bootstrap core CSS -->
@@ -66,6 +66,23 @@
 </div><!-- /.container -->
 <div class="blog-footer">
     <p><a href="#">Back to top</a></p>
+    <div class="my-social-media-links">
+        <a href="https://github.com/liaozd/" rel="nofollow">
+            <img alt="github" src="{% static "icons/webfooter/icon_git.svg" %}" width="22" height="22" />
+        </a>
+        <a href="http://weibo.com/liaozd" rel="nofollow">
+            <img alt="weibo" src="{% static "icons/webfooter/icon_weibo.svg" %}" width="22" height="22" />
+        </a>
+        {#                        <a href="http://www.douban.com/people/liaozd/">#}
+        {#                            <img alt="douban" src="{% static "icons/webfooter/icon_douban.svg" %}" />#}
+        {#                        </a>#}
+        <a href="https://www.linkedin.com/pub/liao-zhuodi/23/83/b74" rel="nofollow">
+            <img alt="linkedin" src="{% static "icons/webfooter/icon_linkedin.svg" %}" width="22" height="22" />
+        </a>
+        {#                        <a href="https://www.facebook.com/liao.zhuodi">#}
+        {#                            <img alt="fb" src="{% static "icons/webfooter/icon_facebook.svg" %}" width="21" height="21" />#}
+        </a>
+    </div> <!-- /.my-social-media-links -->
 </div>
 <!-- About Modal -->
 <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -74,23 +91,6 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="myModalLabel">关于这个人</h4>
-                <div class="my-social-media-links">
-                    <a href="https://github.com/liaozd/">
-                        <img alt="github" src="{% static "icons/webfooter/icon_git.svg" %}" width="22" height="22" />
-                    </a>
-                    <a href="http://weibo.com/liaozd">
-                        <img alt="weibo" src="{% static "icons/webfooter/icon_weibo.svg" %}" width="22" height="22" />
-                    </a>
-                    {#                        <a href="http://www.douban.com/people/liaozd/">#}
-                    {#                            <img alt="douban" src="{% static "icons/webfooter/icon_douban.svg" %}" />#}
-                    {#                        </a>#}
-                    <a href="https://www.linkedin.com/pub/liao-zhuodi/23/83/b74">
-                        <img alt="linkedin" src="{% static "icons/webfooter/icon_linkedin.svg" %}" width="22" height="22" />
-                    </a>
-                    {#                        <a href="https://www.facebook.com/liao.zhuodi">#}
-                    {#                            <img alt="fb" src="{% static "icons/webfooter/icon_facebook.svg" %}" width="21" height="21" />#}
-                    </a>
-                </div> <!-- /.my-social-media-links -->
             </div>
             <div class="modal-body">
                 <p>男, 生于80年代上海, 长在90年代北京, 活在新世纪路上, 人在呢别烧纸。
