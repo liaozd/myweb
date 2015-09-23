@@ -5,7 +5,7 @@
         <div class="post">
             <h2><a href="{% url "entry_detail" slug=object.slug %}">{{ object.title }}</a></h2>
             <p class="meta">
-                {{ object.created }} |
+                {{ object.created|date:"Y-m-d" }} |
                 Tags: {{  object.tags.all|join:", " }}
             </p>
             {{ object.body|markdown }}
