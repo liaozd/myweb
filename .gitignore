@@ -65,10 +65,10 @@ tmp/
 # linux editor temp file
 *~
 
-# database
+# sqlite database
 *.sqlite3
 
-# my project
+# In dividual branch folder
 docker-compose.production.yml
 docker-compose.staging.yml
 Dockerfile
