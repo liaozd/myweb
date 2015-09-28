@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . import models
+from myblog.models import Entry, Tag
 from django.db.models import TextField
 from django_markdown.admin import MarkdownModelAdmin
 from django_markdown.widgets import AdminMarkdownWidget
@@ -15,5 +15,5 @@ class EntryAdmin(MarkdownModelAdmin):
 
 # this is interesting, sync slug with title, when inputting in title
 # by javascript
-admin.site.register(models.Entry, EntryAdmin)
-admin.site.register(models.Tag)
+admin.site.register(Entry, EntryAdmin)
+admin.site.register(Tag)

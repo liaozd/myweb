@@ -1,13 +1,13 @@
 from django.views import generic
-from . import models
+from myblog.models import Entry
 
 
 class BlogIndex(generic.ListView):
-    queryset = models.Entry.objects.published()
+    queryset = Entry.objects.published()
     template_name = 'home.html'
     paginate_by = 2
 
 
 class BlogDetail(generic.DetailView):
-    model = models.Entry
+    model = Entry
     template_name = 'post.html'
