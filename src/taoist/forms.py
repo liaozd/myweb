@@ -1,5 +1,5 @@
 from django import forms
-from .models import YouTubeURL
+from taoist.models import YouTubeURL
 
 
 class YouTubeURLForm(forms.ModelForm):

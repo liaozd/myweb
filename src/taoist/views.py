@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from src.fgfw.forms import YouTubeURLForm
+from taoist.forms import YouTubeURLForm
 
 
 def fgfw(request):
