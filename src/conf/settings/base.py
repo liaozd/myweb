@@ -13,8 +13,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(32))
 
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
 
 DJANGO_APPS = (
@@ -50,6 +48,22 @@ MIDDLEWARE_CLASSES = (
 # I guess this is the relevent path from manage.py
 ROOT_URLCONF = 'conf.urls'
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 WSGI_APPLICATION = 'conf.wsgi.application'
 
 LANGUAGE_CODE = 'en-us'
@@ -71,10 +85,6 @@ STATIC_ROOT = normpath(join(BASE_DIR, 'static', 'static_root'))
 
 STATICFILES_DIRS = (
     join(BASE_DIR, 'static', 'static_dirs'),
-)
-
-TEMPLATE_DIRS = (
-    join(BASE_DIR, 'templates'),
 )
 
 # $DJANGO_ENVIRONMENT is set in docker-compose yaml file
