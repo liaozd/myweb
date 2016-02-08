@@ -66,7 +66,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'conf.wsgi.application'
 
-LANGUAGE_CODE = 'zh-CN'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
