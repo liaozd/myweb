@@ -24,6 +24,8 @@ def deploy(to='local', branch='staging'):
     RUN: fab deploy:to=local,branch=production
     RUN: fab deploy:to=remote,branch=staging
     RUN: fab deploy:to=remote,branch=production
+    :param branch: git branch for deploy
+    :param to: deploy to local or remote
     """
     print " Deploying {0} branch to {1} ".format(branch, to).center(70, '#')
     if to == 'local':

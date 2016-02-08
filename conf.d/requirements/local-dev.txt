@@ -1,4 +1,4 @@
-Django==1.9
+Django==1.9.2
 django-markdown==0.8.4
 ecdsa==0.13
 Fabric==1.10.2
