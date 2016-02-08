@@ -45,7 +45,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-# I guess this is the relevent path from manage.py
+# I guess this is the relevant path from manage.py
 ROOT_URLCONF = 'conf.urls'
 
 TEMPLATES = [
