@@ -7,7 +7,7 @@ from fabric.state import env
 from src.conf.settings.base import STATIC_ROOT, BASE_DIR
 
 # In local dev, to load "~/.ssh/config" file.
-# While in circleci.com put the aws key in: project settings -> SSH Permissions,
+# While in CircleCI put the aws key in: project settings -> SSH Permissions,
 env.use_ssh_config = True
 # set $MYSERVER in CI or in the environment file
 env.hosts = os.environ['MYSERVER']
