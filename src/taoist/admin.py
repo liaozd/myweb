@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import YouTubeURL
+from .models import VideoUrl
 
 
-class YouTubeURLAdmin(admin.ModelAdmin):
+class VideoUrlAdmin(admin.ModelAdmin):
     list_display = ['request_url', 'timestamp']
 
     class Meta:
-        model = YouTubeURL
+        model = VideoUrl
 
-admin.site.register(YouTubeURL, YouTubeURLAdmin)
+admin.site.register(VideoUrl, VideoUrlAdmin)
