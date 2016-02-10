@@ -1,8 +1,5 @@
 from django.db import models
 
-import sys
-print(sys.path)
-
 
 class VideoUrl(models.Model):
     request_url = models.URLField()

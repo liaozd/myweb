@@ -1,7 +1,11 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import CreateView
+
+from .models import VideoUrl
+from .forms import VideoUrlForm
 
 
-class TaoistView(TemplateView):
-    template_name = "taoist.html"
+class TaoistView(CreateView):
+    model = VideoUrl
+    form_class = VideoUrlForm
+    template_name = 'taoist.html'
+    success_url = '/taoist/'
