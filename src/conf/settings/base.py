@@ -27,6 +27,7 @@ DJANGO_APPS = (
 
 THIRD_PARTY_APPS = (
     'django_markdown',
+    'rest_framework',
 )
 
 LOCAL_APPS = (
@@ -45,6 +46,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGE_SIZE': 10
+}
 
 # I guess this is the relevant path from manage.py
 ROOT_URLCONF = 'conf.urls'
