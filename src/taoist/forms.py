@@ -3,7 +3,8 @@ from taoist.models import VideoUrl
 
 
 class VideoUrlForm(forms.ModelForm):
-    request_url = forms.URLField(label='Input YouTube Link',
+    request_url = forms.URLField(label='',
+                                 widget=forms.TextInput(attrs={'placeholder': 'YouTube URL Link Here'}),
                                  max_length=300,
                                  )
 
