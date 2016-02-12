@@ -23,7 +23,7 @@ class TaoistSerialzerView(APIView):
 
     def post(self, request, format=None):
         videourl_id = request.data.get('id')
-        if id:
+        if videourl_id:
             videourl_object = VideoUrl.objects.get(id=videourl_id)
             serializer = VideoUrlSerializer(videourl_object, data=request.data, partial=True)
         else:
