@@ -21,7 +21,7 @@ def deploy(to='local', branch='staging'):
     """
     build containers on local using fabric local(), lcd(),
     or remote using fabric run(), cd()
-    RUN: fab deploy:to=local,branch=production
+    RUN: fab deploy:to=local,branch=staging
     RUN: fab deploy:to=remote,branch=staging
     RUN: fab deploy:to=remote,branch=production
     :param branch: git branch for deploy
