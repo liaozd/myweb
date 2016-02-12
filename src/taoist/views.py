@@ -17,12 +17,17 @@ class TaoistView(CreateView):
 
 class TaoistSerialzerView(APIView):
     def get(self, request, format=None):
-        videourls = VideoUrl.objects.all()
-        serializer = VideoUrlSerializer(videourls, many=True)
+        all_urls = VideoUrl.objects.all()
+        serializer = VideoUrlSerializer(all_urls, many=True)
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = VideoUrlSerializer(data=request.data)
+        videourl_id = request.data.get('id')
+        if id:
+            videourl_object = VideoUrl.objects.get(id=videourl_id)
+            serializer = VideoUrlSerializer(videourl_object, data=request.data, partial=True)
+        else:
+            serializer = VideoUrlSerializer(data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

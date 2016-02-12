@@ -5,5 +5,5 @@ from taoist.models import VideoUrl
 class VideoUrlSerializer(serializers.ModelSerializer):
     class Meta:
         model = VideoUrl
-        fields = ('request_url',)
-
+        fields = ('id', 'request_url',)
+        # write_only_fields = ('id',)
