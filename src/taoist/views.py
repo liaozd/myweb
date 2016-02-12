@@ -9,6 +9,7 @@ from taoist.serializers import VideoUrlSerializer
 
 
 class TaoistView(CreateView):
+
     model = VideoUrl
     form_class = VideoUrlForm
     template_name = 'taoist.html'
@@ -16,9 +17,10 @@ class TaoistView(CreateView):
 
 
 class TaoistSerialzerView(APIView):
+
     def get(self, request, format=None):
-        all_urls = VideoUrl.objects.all()
-        serializer = VideoUrlSerializer(all_urls, many=True)
+        first_url = VideoUrl.objects.exclude(time_finish_upload__isnull=False).order_by('timestamp').first()
+        serializer = VideoUrlSerializer(first_url)
         return Response(serializer.data)
 
     def post(self, request, format=None):
