@@ -1,11 +1,4 @@
-argparse==1.2.1
-Django==1.9
-django-markdown==0.8.4
-djangorestframework==3.3.2
-ecdsa==0.13
+# Importing from base.txt
+-r base.txt
+
 gunicorn==19.4.1
-Markdown==2.6.5
-paramiko==1.16.0
-psycopg2==2.6.1
-pycrypto==2.6.1
-wsgiref==0.1.2

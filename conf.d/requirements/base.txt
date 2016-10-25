@@ -1,0 +1,17 @@
+cffi==1.8.3
+cryptography==1.5.2
+Django==1.10.2
+django-markdown==0.8.4
+djangorestframework==3.5.1
+ecdsa==0.13
+enum34==1.1.6
+idna==2.1
+ipaddress==1.0.17
+Markdown==2.6.7
+paramiko==2.0.2
+psycopg2==2.6.2
+pyasn1==0.1.9
+pycparser==2.16
+pycrypto==2.6.1
+six==1.10.0
+wheel==0.29.0
